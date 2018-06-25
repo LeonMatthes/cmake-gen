@@ -38,7 +38,7 @@ class Directory{
             entry += `add_subdirectory(${dir.name})\n`
         }
         
-        entry += `\nset(${varName}\n\t\$(${varName}}\n`
+        entry += `\nset(${varName}\n\t\${${varName}}\n`
         
         for(const fileName of this.files){
             entry += `\t\${CMAKE_CURRENT_SOURCE_DIR}/${fileName}\n`
