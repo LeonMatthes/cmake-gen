@@ -1,13 +1,15 @@
 const fs = require('fs')
 
 class Directory{
-    constructor(name = '', path = '.') {
+    constructor(path = '.', name = '') {
         this.name = name
         this.path = path
         this.subdirectories = []
         this.files = []
 
         this.flag = false
+
+        this.read()
     }
 
     read() {
@@ -15,9 +17,7 @@ class Directory{
         for(const name of fs.readdirSync(this.path)){
             path = `${this.path}/${name}`
             if(fs.lstatSync(path).isDirectory()){
-                directory = new Directory(name, path)
-                this.subdirectories.push(directory)
-                directory.read()
+                this.subdirectories.push(new Directory(path, name))
             }
             else{
                 let splittedName = name.split('.')
@@ -50,6 +50,7 @@ class Directory{
     }
 
     writeCmake(varName) {
+        console.log('Writing directory: ' + this.path);
         fs.writeFileSync(this.path + '/' + 'CMakeLists.txt', this.cmakeEntry(varName))
 
         for(const dir of this.subdirectories){
