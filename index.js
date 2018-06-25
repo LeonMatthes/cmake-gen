@@ -62,7 +62,7 @@ class Directory{
             this.writeCmake(varName)
         }
         else{
-            console.log('The directory must contain a CMakeLists.txt')
+            console.log('Error: The directory ' + this.path + ' does not contain a CMakeLists.txt')
         }
     }
 }
